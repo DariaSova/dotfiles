@@ -1,11 +1,19 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/Users/dariasova/.dotfiles/zsh
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="theunraveler"
+# Path to your oh-my-zsh installation.
+export ZSH=/Users/darias/.oh-my-zsh
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="gentoo"
+source ~/.bashrc
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+eval "$(jenv init -)"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -50,25 +58,13 @@ ZSH_THEME="theunraveler"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
+plugins=(zsh-autosuggestions)
+
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
-
-source $ZSH/oh-my-zsh.sh
-unalias glg
-alias glg="g lg"
-alias bi="bundle install"
-alias be="bundle exec"
-alias gcmm="git commit -m"
-alias gcm="git commit"
-alias gsh="git show"
-alias rs="rails s"
-alias greb="git rebase"
-alias amend="commit --amend"
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-alias vim="/usr/local/bin/vim"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
