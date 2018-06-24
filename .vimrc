@@ -1,19 +1,35 @@
 set nocompatible              " be iMproved, required
 set number
+set shell=bash
 syntax on 
-filetype plugin indent on    " required
-filetype on " required
-filetype indent on    " Enable filetype-specific indenting
-filetype plugin on    " Enable filetype-specific plugins
+filetype plugin indent on
+filetype on
+filetype indent on
+filetype plugin on
 set clipboard=unnamed
+set backspace=indent,eol,start
 autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
-" remap spliting windows 
+autocmd FileType eruby setlocal expandtab shiftwidth=2 tabstop=2
+
+let loaded_netrwPlugin = 1
+" remap splitting windows
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+" remap splits
+nmap :vs :vsplit
+nmap :s :split
+" nnoremap <C-a> <C-w>
 "Pathogen
-execute pathogen#infect()
+set nocp
+call pathogen#infect()
+
+" Set SPELLCHeCK YYAH
+set spell spelllang=en_ca
+
+" Fzf search enable
+set rtp+=/usr/local/opt/fzf
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -24,6 +40,16 @@ set tags=tags;/
 syntax enable
 let g:solarized_termcolors = 16
 call vundle#begin()
+
+" Ocean theme VS
+Plugin 'mhartington/oceanic-next'
+if (has("termguicolors"))
+  set termguicolors
+ endif
+colorscheme OceanicNext
+set background=dark
+let g:oceanic_next_terminal_italic = 1
+let g:oceanic_next_terminal_bold = 1
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -38,10 +64,36 @@ Plugin 'Shougo/neocomplete.vim'
 Plugin 'airblade/vim-gitgutter'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Install L9 and avoid a Naming conflict if you've already
-installed a
+" installed a
 " different version somewhere else.
 Plugin 'ascenator/L9', {'name': 'newL9'}
 Bundle 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-rails'
+" Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+" Fzg plugin
+Plugin 'junegunn/fzf.vim'
+" remap envoke key
+nnoremap <silent> <C-z> :FZF<CR>
+
+" Ripgrep
+Plugin 'jremmen/vim-ripgrep'
+let g:rg_highligh = 1
+
+"" Quick comment toggling
+Plugin 'tpope/vim-commentary'
+noremap \ :Commentary<CR
+autocmd FileType ruby setlocal commentstring=#\ %s
+
+" Files stucture tree
+Plugin 'scrooloose/nerdtree'
+"map <C-m> :NERDTreeToggle<CR>
+map - :NERDTreeToggle<CR>
+map <leader>r :NERDTreeFind<cr>
+autocmd BufWinEnter * NERDTreeFind
+map ] :NERDTreeFind<CR>
 
 call vundle#end()            " required
 
@@ -52,3 +104,23 @@ let g:neocomplete#enable_smart_case = 1
 inoremap <expr> <c-j> ("\<C-n>")
 inoremap <expr> <c-k> ("\<C-p>") 
 
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" vim-ruby
+let g:ruby_indent_access_modifier_style = 'normal'
+let g:ruby_indent_assignment_style = 'variable'
+let g:ruby_indent_block_style = 'do'
