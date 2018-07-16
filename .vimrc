@@ -67,7 +67,7 @@ Plugin 'airblade/vim-gitgutter'
 " installed a
 " different version somewhere else.
 Plugin 'ascenator/L9', {'name': 'newL9'}
-Bundle 'vim-ruby/vim-ruby'
+Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-rails'
 " Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
