@@ -27,6 +27,8 @@ call pathogen#infect()
 
 " Set SPELLCHeCK YYAH
 set spell spelllang=en_ca
+" hi SpellBad cterm=underline,bold
+"set highlight SpellBad      ctermfg=Red         term=Reverse        guisp=Red       gui=undercurl   ctermbg=White 
 
 " Fzf search enable
 set rtp+=/usr/local/opt/fzf
@@ -40,6 +42,10 @@ set tags=tags;/
 syntax enable
 let g:solarized_termcolors = 16
 call vundle#begin()
+
+" Set Theme
+" Plugin 'junegunn/seoul256.vim'
+" colo seoul256
 
 " Ocean theme VS
 Plugin 'mhartington/oceanic-next'
@@ -97,6 +103,12 @@ map ] :NERDTreeFind<CR>
 
 call vundle#end()            " required
 
+" Ctrl-P configurations
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+" Ctags with Ctrl-P
+" nnoremap <leader>. :CtrlPTag<cr>
+
 "Neocomplete configurations
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
@@ -119,6 +131,18 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+
+" Netrw and Vim.Vinegar file tree
+" let g:netrw_browse_split = 2
+" let g:netrw_banner = 0
+" let g:netrw_liststyle = 3
+" let g:netrw_altv = 1
+" let g:netrw_winsize = 20
+" Automatically open with vim
+" augroup ProjectDrawer
+"   autocmd!
+"   autocmd VimEnter * :Vexplore
+" augroup END
 
 " vim-ruby
 let g:ruby_indent_access_modifier_style = 'normal'
