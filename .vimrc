@@ -1,17 +1,22 @@
 set nocompatible              " be iMproved, required
 set number
+syntax enable
 set shell=bash
 syntax on 
 filetype plugin indent on
 filetype on
 filetype indent on
 filetype plugin on
-set clipboard=unnamed
+set clipboard=unnamedplus
+set clipboard^=unnamed
+set mouse=r
 set backspace=indent,eol,start
 autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
 autocmd FileType eruby setlocal expandtab shiftwidth=2 tabstop=2
 
-let loaded_netrwPlugin = 1
+" max text length
+au BufRead,BufNewFile *.rb setlocal textwidth=120
+
 " remap splitting windows
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -39,7 +44,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 " allow vim to jump through directories for ctags
 set tags=tags;/
-syntax enable
 let g:solarized_termcolors = 16
 call vundle#begin()
 
@@ -73,9 +77,9 @@ Plugin 'airblade/vim-gitgutter'
 " installed a
 " different version somewhere else.
 Plugin 'ascenator/L9', {'name': 'newL9'}
-Plugin 'vim-ruby/vim-ruby'
+Bundle 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-rails'
-" Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'tpope/vim-endwise'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
@@ -98,7 +102,7 @@ Plugin 'scrooloose/nerdtree'
 "map <C-m> :NERDTreeToggle<CR>
 map - :NERDTreeToggle<CR>
 map <leader>r :NERDTreeFind<cr>
-autocmd BufWinEnter * NERDTreeFind
+" autocmd BufWinEnter * NERDTreeFind
 map ] :NERDTreeFind<CR>
 
 call vundle#end()            " required
@@ -132,17 +136,23 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-" Netrw and Vim.Vinegar file tree
-" let g:netrw_browse_split = 2
-" let g:netrw_banner = 0
-" let g:netrw_liststyle = 3
-" let g:netrw_altv = 1
-" let g:netrw_winsize = 20
-" Automatically open with vim
-" augroup ProjectDrawer
-"   autocmd!
-"   autocmd VimEnter * :Vexplore
-" augroup END
+" ALE
+nmap <LEADER>af :ALEFix<CR>
+Plugin 'w0rp/ale'
+let g:ale_lint_on_text_changed = 1
+let g:ale_lint_on_save = 1
+let g:ale_set_loclist = 1
+
+let g:ale_fixers = {
+\  'ruby': [
+\    'remove_trailing_lines',
+\    'trim_whitespace',
+\    'rubocop'
+\  ]
+\}
+let g:ale_linters = {'ruby': ['rubocop', 'ruby']}
+let g:ale_ruby_rubocop_executable = 'bin/rubocop'
+let g:ruby_indent_assignment_style = 'variable'
 
 " vim-ruby
 let g:ruby_indent_access_modifier_style = 'normal'
