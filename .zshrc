@@ -2,9 +2,10 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/dariasova/.oh-my-zsh
+export ZSH=/Users/dariasv/.oh-my-zsh
 # GOPATH expport
-export PATH=$GOPATH/bin:$PATH
+export GOPATH=$HOME
+export PATH=$GOPATH/bin:$PATH:$HOME/bin
 export PKG_CONFIG_PATH=/usr/local/opt/imagemagick@6/lib/pkgconfig
 
 # Set name of the theme to load. Optionally, if you set this to "random"
@@ -101,5 +102,26 @@ set -g default-terminal "xterm"
 alias tmux="TERM=screen-256color-bce tmux"
 export TERM="xterm-256color"
 
+# STOP SPRING FOREVER
+export DISABLE_SPRING=1
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
+
+# fe [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+vf() {
+  local files
+  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+}
+
+# fd - cd to selected directory
+fcd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
