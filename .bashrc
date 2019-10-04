@@ -1,6 +1,6 @@
 alias g='git'
 alias gsh='git show'
-alias gcl='git clean -df'
+alias gcl='git clean -df && git reset --hard'
 alias gst='git status -sb'
 alias gbr='git branch'
 alias gd='git diff'
