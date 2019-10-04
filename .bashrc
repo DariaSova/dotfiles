@@ -36,6 +36,8 @@ alias gp='git push'
 alias gpl='git pull'
 alias gfm='git fetch origin master'
 
+alias cat='bat'
+
 alias maintenace_task='bin/rails generate maintenance_task '
 
 alias tmux="TERM=screen-256color-bce tmux"
