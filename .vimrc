@@ -11,11 +11,16 @@ set clipboard=unnamedplus
 set clipboard^=unnamed
 set mouse=r
 set backspace=indent,eol,start
+set laststatus=2
 autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
 autocmd FileType eruby setlocal expandtab shiftwidth=2 tabstop=2
 
+
 " max text length
 au BufRead,BufNewFile *.rb setlocal textwidth=120
+
+" get rid of trailing whitespace on :w
+autocmd BufWritePre * %s/\s\+$//e
 
 " remap splitting windows
 nnoremap <C-h> <C-w>h
