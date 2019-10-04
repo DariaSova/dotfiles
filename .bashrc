@@ -1,6 +1,6 @@
 alias g='git'
 alias gsh='git show'
-alias gcl='git clean -df'
+alias gcl='git clean -df && git reset --hard'
 alias gst='git status -sb'
 alias gbr='git branch'
 alias gd='git diff'
@@ -35,6 +35,8 @@ alias gpf='git push --force-with-lease'
 alias gp='git push'
 alias gpl='git pull'
 alias gfm='git fetch origin master'
+
+alias cat='bat'
 
 alias maintenace_task='bin/rails generate maintenance_task '
 

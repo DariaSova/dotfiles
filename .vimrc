@@ -11,11 +11,16 @@ set clipboard=unnamedplus
 set clipboard^=unnamed
 set mouse=r
 set backspace=indent,eol,start
+set laststatus=2
 autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
 autocmd FileType eruby setlocal expandtab shiftwidth=2 tabstop=2
 
+
 " max text length
 au BufRead,BufNewFile *.rb setlocal textwidth=120
+
+" get rid of trailing whitespace on :w
+autocmd BufWritePre * %s/\s\+$//e
 
 " remap splitting windows
 nnoremap <C-h> <C-w>h
@@ -87,6 +92,7 @@ Plugin 'garbas/vim-snipmate'
 Plugin 'junegunn/fzf.vim'
 " remap envoke key
 nnoremap <silent> <C-z> :FZF<CR>
+nnoremap <silent> <C-x> :Buffers<CR>
 
 " Ripgrep
 Plugin 'jremmen/vim-ripgrep'
@@ -118,7 +124,7 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 " Move up and down in autocomplete with <c-j> and <c-k>
 inoremap <expr> <c-j> ("\<C-n>")
-inoremap <expr> <c-k> ("\<C-p>") 
+inoremap <expr> <c-k> ("\<C-p>")
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -158,3 +164,4 @@ let g:ruby_indent_assignment_style = 'variable'
 let g:ruby_indent_access_modifier_style = 'normal'
 let g:ruby_indent_assignment_style = 'variable'
 let g:ruby_indent_block_style = 'do'
+set shell=/bin/zsh
