@@ -1,0 +1,22 @@
+[user]
+	name = Daria Sova
+	email = daria.sova@shopify.com
+[rebase]
+    autostash = true
+[alias]
+    unstage= reset HEAD
+    fn = --name-only
+    current = rev-parse --abbrev-ref HEAD
+    publish = !git push -u origin $(git current)
+    resetorigin = !git reset origin/$(git rev-parse --abbrev-ref HEAD)
+    pullr = !git pull --rebase
+    ch = !git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout
+[core]
+	excludesfile = /Users/darias/.gitignore_global
+[init]
+	templatedir = ~/.git_templates
+[merge]
+	guitool = kdiff3
+	tool = kdiff3
+[include]
+	path = /Users/darias/.config/dev/gitconfig

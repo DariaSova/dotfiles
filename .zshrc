@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/dariasv/.oh-my-zsh
+export ZSH=/Users/darias/.oh-my-zsh
 # GOPATH expport
 export GOPATH=$HOME
 export PATH=$GOPATH/bin:/usr/local/bin:$PATH:$HOME/bin
@@ -82,7 +82,7 @@ export DISABLE_SPRING=1
 #   - Exit if there's no match (--exit-0)
 vf() {
   local files
-  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
@@ -94,9 +94,34 @@ fcd() {
   cd "$dir"
 }
 
+function dev-integration-minimal() {
+  for integration in $(dev integration status | grep enabled | grep -v web | awk '{ print $1 }')
+  do
+    dev sv stop $integration
+    dev integration disable $integration
+  done
+}
+
+function dev-integration-balance() {
+  for integration in cardsink-copy cardserver-copy hosted-fields-copy payment-service billing
+  do
+    dev sv start $integration
+    dev integration enable $integration
+  done
+}
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # trigger context aware FZF completion
 export FZF_COMPLETION_TRIGGER=''
 bindkey '^Z' fzf-completion
 bindkey '^I' $fzf_default_completion
 
+# enable Vim mode
+# bindkey -v
+
+if [ -e /Users/dariasv/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/dariasv/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
+if [ -e /Users/darias/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/darias/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+[[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
