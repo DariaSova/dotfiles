@@ -1,0 +1,44 @@
+#!/bin/bash
+
+pre_install() {
+  if [ $SPIN ] ; then
+    sudo apt install -y ripgrep fzf
+    sudo apt install -y silversearcher-ag
+    rm ~/.gitconfig ~/.zshrc
+
+    ## This is just to trick vim-system-copy to use pbcopy
+    ## Actually vim-system-copy is using non existing wl-copy but we are linking that
+    ## to pbcopy which in spin it sends the clipboard to our machines
+    sudo ln -s /usr/bin/pbcopy /usr/bin/wl-copy
+  fi
+}
+
+install() {
+  ./create-symlinks
+
+  git clone --depth=1 https://github.com/romkatv/gitstatus.git $HOME/git/gitstatus
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install --key-bindings --completion --update-rc
+}
+
+post_install() {
+  if [ $SPIN ] ; then
+    for repo in $(find $HOME/src/github.com/Shopify -maxdepth 1 -mindepth 1); do
+      cd $repo
+      if [[ $(find . -name "*.rb" | wc -l) -gt 0 ]] ; then
+        export GEM_HOME="$HOME/.gem"
+        gem install ripper-tags
+        export PATH=$PATH:$HOME/.gem/bin
+        $HOME/bin/git-ctags
+      fi
+    done
+  fi
+}
+
+main() {
+  pre_install
+  install
+  post_install
+}
+
+main
