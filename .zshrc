@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/darias/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 # GOPATH expport
 export GOPATH=$HOME
 export PATH=$GOPATH/bin:/usr/local/bin:$PATH:$HOME/bin
@@ -81,8 +81,7 @@ export DISABLE_SPRING=1
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
 vf() {
-  local files
-=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+  local files=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
@@ -125,3 +124,5 @@ if [ -e /Users/dariasv/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/darias
 if [ -e /Users/darias/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/darias/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 [[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
+
+[[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
