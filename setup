@@ -8,11 +8,33 @@ pre_install() {
   fi
 }
 
+setup_oh_my_zsh() {
+    install_oh_my_zsh
+    setup_oh_my_zsh_theme
+}
+
+install_oh_my_zsh() {
+    if [ ! -d "$HOME/.oh-my-zsh" ] ; then
+        echo "oh-my-zsh isn't installed - cloning from git"
+        git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+    fi
+}
+
+setup_oh_my_zsh_theme() {
+    CUSTOM_THEME_DIR=$HOME/.oh-my-zsh/custom/themes
+
+    echo "cloning oh-my-zsh theme"
+    cd "$CUSTOM_THEME_DIR"
+    git clone https://github.com/fcamblor/oh-my-zsh-agnoster-fcamblor.git
+    cp $CUSTOM_THEME_DIR/oh-my-zsh-agnoster-fcamblor/agnoster-fcamblor.zsh-theme $CUSTOM_THEME_DIR/agnoster-fcamblor.zsh-theme
+}
+
 install() {
   ./create-symlinks.sh
 
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   ~/.fzf/install --key-bindings --completion --update-rc
+  setup_oh_my_zsh
 }
 
 post_install() {
