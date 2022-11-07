@@ -79,6 +79,11 @@ nnoremap <silent> <C-z> :FZF<CR>
 " remap buffer key
 nnoremap <silent> <C-x> :Buffers<CR>
 
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+  \| endif
+
 " ===================PlugIns=========================
 call plug#begin('~/.vim/plugged')
 " Ocean theme VS
